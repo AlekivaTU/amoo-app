@@ -1,0 +1,141 @@
+.location-screen {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.location-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.watch-button,
+.update-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.watch-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.watch-button:hover {
+  background-color: #1976D2;
+}
+
+.watch-button.active {
+  background-color: #f44336;
+}
+
+.watch-button.active:hover {
+  background-color: #da190b;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.update-button:hover {
+  background-color: #45a049;
+}
+
+.map-container {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.marker-popup {
+  padding: 10px;
+}
+
+.marker-popup h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.marker-popup p {
+  margin: 0;
+  color: #666;
+}
+
+.nearby-users {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nearby-users h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.users-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.user-card {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+}
+
+.user-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.user-card p {
+  margin: 0;
+  color: #666;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  padding: 40px;
+  color: #f44336;
+  background-color: #ffebee;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.location-error {
+  text-align: center;
+  padding: 40px;
+  background-color: #fff3e0;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.location-error h2 {
+  margin: 0 0 10px 0;
+  color: #f57c00;
+}
+
+.location-error p {
+  margin: 0;
+  color: #666;
+} 

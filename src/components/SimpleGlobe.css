@@ -1,0 +1,347 @@
+.simple-globe-container {
+  width: 100%;
+  height: 100%;
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  overflow: hidden;
+}
+
+.globe {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease-out;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.globe.initialized {
+  opacity: 1;
+  transform: scale(1) rotateX(20deg);
+}
+
+.globe-surface {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  background-color: #1e4877;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(100, 150, 255, 0.3);
+}
+
+.earth-map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 50%;
+  background-image: url('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg');
+  background-size: cover;
+  background-position: center;
+  animation: rotate-globe 60s linear infinite;
+  opacity: 0.9;
+  mix-blend-mode: soft-light;
+}
+
+.earth-glow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.globe-3d {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.globe-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.globe-face.front { transform: translateZ(150px); }
+.globe-face.back { transform: translateZ(-150px) rotateY(180deg); }
+.globe-face.right { transform: translateX(150px) rotateY(90deg); }
+.globe-face.left { transform: translateX(-150px) rotateY(-90deg); }
+.globe-face.top { transform: translateY(-150px) rotateX(90deg); }
+.globe-face.bottom { transform: translateY(150px) rotateX(-90deg); }
+
+.point {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -4px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor;
+  z-index: 2;
+}
+
+.point:hover {
+  transform: scale(1.5) translateZ(10px);
+  box-shadow: 
+    0 0 15px currentColor,
+    0 0 30px currentColor;
+}
+
+@keyframes rotate-globe {
+  from {
+    background-position: 0 center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+
+.globe::before {
+  content: '';
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  left: -5px;
+  top: -5px;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.2) 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.2) 55%,
+    transparent 60%
+  );
+  pointer-events: none;
+  animation: highlight 8s linear infinite;
+}
+
+.globe::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 
+    inset 16px -8px 40px rgba(0, 0, 0, 0.9),
+    inset -8px 16px 40px rgba(255, 255, 255, 0.4),
+    -8px 16px 20px rgba(200, 200, 255, 0.15),
+    16px -8px 20px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+@keyframes highlight {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .globe {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .globe::before {
+    width: 260px;
+    height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .globe {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .globe::before {
+    width: 210px;
+    height: 210px;
+  }
+  
+  .point {
+    width: 6px;
+    height: 6px;
+    margin: -3px;
+  }
+}
+
+.map-container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  position: relative;
+}
+
+.custom-marker {
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.custom-marker:hover {
+  transform: scale(1.1);
+}
+
+.custom-marker > div {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.current-location-marker {
+  position: relative;
+}
+
+.current-location-marker > div {
+  width: 100%;
+  height: 100%;
+  background-color: #4285f4;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.3);
+}
+
+.current-location-marker > div::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background-color: rgba(66, 133, 244, 0.3);
+  animation: pulse 2s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Стили для нижней навигации */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px;
+  color: #666;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.nav-item.active {
+  color: #FF69B4;
+}
+
+.nav-item-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+/* Стили для попапов */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  padding: 12px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.leaflet-popup-tip-container {
+  margin-top: -1px;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+}
+
+/* Стили для зума */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+}
+
+.leaflet-control-zoom a {
+  background-color: white !important;
+  color: #666 !important;
+  border: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 18px !important;
+  transition: all 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #f4f4f4 !important;
+  color: #333 !important;
+}
+
+.leaflet-control-zoom-in {
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+
+.leaflet-control-zoom-out {
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+} 
