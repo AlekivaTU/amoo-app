@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkweb=self.webpackChunkweb||[]).push([[896],{896:(e,a,l)=>{l.r(a),l.d(a,{default:()=>c});var t=l(665);const c=()=>t.createElement("div",{className:"map-container"},t.createElement("h1",null,"\u041a\u0430\u0440\u0442\u0430"),t.createElement("div",{className:"map-placeholder"},t.createElement("p",null,"\u0417\u0434\u0435\u0441\u044c \u0431\u0443\u0434\u0435\u0442 \u043a\u0430\u0440\u0442\u0430")))}}]);
-//# sourceMappingURL=896.546f536d.chunk.js.map
