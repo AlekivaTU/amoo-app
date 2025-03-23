@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import './Auth.css';
+import '../styles/Auth.css';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -18,63 +18,59 @@ const Register: React.FC = () => {
       await register(email, password, name, parseInt(age));
       navigate('/map');
     } catch (err) {
-      setError('Ошибка при регистрации');
+      setError('Ошибка при регистрации. Попробуйте еще раз.');
     }
   };
 
   return (
     <div className="auth-container">
-      <form onSubmit={handleSubmit} className="auth-form">
+      <div className="auth-box">
         <h2>Регистрация</h2>
         {error && <div className="error-message">{error}</div>}
-        <div className="form-group">
-          <label htmlFor="name">Имя</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="age">Возраст</label>
-          <input
-            type="number"
-            id="age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Пароль</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="auth-button">
-          Зарегистрироваться
-        </button>
-        <p className="auth-link">
-          Уже есть аккаунт?{' '}
-          <span onClick={() => navigate('/login')}>Войти</span>
-        </p>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Имя"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Пароль"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="number"
+              placeholder="Возраст"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              required
+              min="18"
+              max="100"
+            />
+          </div>
+          <button type="submit" className="auth-button">
+            Зарегистрироваться
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

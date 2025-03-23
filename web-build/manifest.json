@@ -1,0 +1,7 @@
+{
+  "display": "standalone",
+  "lang": "en",
+  "name": "amoo-app",
+  "short_name": "amoo-app",
+  "start_url": "/?utm_source=web_app_manifest"
+}

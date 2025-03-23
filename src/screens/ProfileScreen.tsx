@@ -1,36 +1,6 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import EditIcon from '@mui/icons-material/Edit';
-import SettingsIcon from '@mui/icons-material/Settings';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import { alpha, SxProps, Theme } from '@mui/material/styles';
-import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import Chip from '@mui/material/Chip';
+import React from 'react';
+import styled from '@emotion/styled';
+import { Global, css } from '@emotion/react';
 
 const mockUser = {
   name: 'Александр Петров',
@@ -41,392 +11,296 @@ const mockUser = {
   interests: ['ПУТЕШЕСТВИЯ', 'ФОТОГРАФИЯ', 'СПОРТ', 'МУЗЫКА'],
 };
 
-// Обновленная цветовая палитра в стиле Badoo
 const theme = {
-  primary: '#7B48F6', // Фиолетовый как в Badoo
-  secondary: '#F5F5F5', // Светло-серый для фона
-  accent: '#5B35B4', // Темно-фиолетовый для акцентов
-  text: '#000000', // Черный для основного текста
-  textSecondary: '#666666', // Серый для вторичного текста
-  background: '#FFFFFF', // Белый фон
-  divider: '#E8E8E8', // Цвет разделителей
-  blue: '#4CC7FC', // Голубой для кнопок верификации
+  primary: '#7B48F6',
+  secondary: '#F5F5F5',
+  accent: '#5B35B4',
+  text: '#000000',
+  textSecondary: '#666666',
+  background: '#FFFFFF',
+  divider: '#E8E8E8',
+  blue: '#4CC7FC',
   chipBackground: '#F0F2F4',
-} as const;
+};
 
-// Обновленные стилизованные компоненты
-const Root = styled(Box)({
-  minHeight: '100vh',
-  backgroundColor: theme.background,
-});
+const globalStyles = css`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-const TopBar = styled(Box)({
-  display: 'flex',
-  justifyContent: 'space-between',
-  padding: '16px',
-  backgroundColor: theme.background,
-});
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #F5F5F5;
+    min-height: 100vh;
+  }
+`;
 
-const IconWrapper = styled(Box)({
-  width: '24px',
-  height: '24px',
-  color: theme.text,
-  cursor: 'pointer',
-});
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #F5F5F5;
+`;
 
-const ProfileSection = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: '0 16px',
-});
+const Container = styled.div`
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: ${theme.background};
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 80px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-const AvatarContainer = styled(Box)({
-  position: 'relative',
-  marginBottom: '16px',
-  width: '120px',
-  height: '120px',
-});
+const ProfileHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 32px;
+`;
 
-const StyledAvatar = styled(Avatar)({
-  width: '100%',
-  height: '100%',
-  border: 'none',
-});
+const AvatarContainer = styled.div`
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 16px;
+`;
 
-const CameraButton = styled(Box)({
-  position: 'absolute',
-  right: 0,
-  bottom: 0,
-  backgroundColor: theme.primary,
-  borderRadius: '50%',
-  padding: '8px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: 'white',
-  cursor: 'pointer',
-});
+const Avatar = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid ${theme.background};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
 
-const Name = styled(Typography)({
-  fontSize: '24px',
-  fontWeight: 'bold',
-  color: theme.text,
-  marginBottom: '4px',
-  textAlign: 'center',
-});
+const CameraButton = styled.button`
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  background: ${theme.primary};
+  border: 3px solid ${theme.background};
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
 
-const ViewProfile = styled(Typography)({
-  color: theme.textSecondary,
-  fontSize: '16px',
-  marginBottom: '24px',
-  cursor: 'pointer',
-});
+const Name = styled.h1`
+  font-size: 24px;
+  font-weight: bold;
+  margin: 8px 0;
+  color: ${theme.text};
+`;
 
-const VerificationButton = styled(Button)({
-  backgroundColor: theme.blue,
-  color: 'white',
-  borderRadius: '100px',
-  padding: '12px 24px',
-  width: '100%',
-  textTransform: 'none',
-  fontSize: '16px',
-  marginBottom: '24px',
-  boxShadow: 'none',
-  '&:hover': {
-    backgroundColor: theme.blue,
-    opacity: 0.9,
-  },
-});
+const Bio = styled.p`
+  color: ${theme.textSecondary};
+  margin-bottom: 24px;
+  text-align: center;
+`;
 
-const CreditsSection = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
-  padding: '16px',
-  backgroundColor: theme.background,
-  borderRadius: '12px',
-  marginBottom: '16px',
-});
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 24px;
+`;
 
-const CreditIcon = styled(Box)({
-  width: '48px',
-  height: '48px',
-  backgroundColor: '#FFD700',
-  borderRadius: '50%',
-  marginRight: '12px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: '24px',
-});
+const Button = styled.button<{ variant?: 'outlined' }>`
+  flex: 1;
+  padding: 12px 24px;
+  border-radius: 100px;
+  border: ${props => props.variant === 'outlined' ? `1px solid ${theme.divider}` : 'none'};
+  background: ${props => props.variant === 'outlined' ? 'transparent' : theme.blue};
+  color: ${props => props.variant === 'outlined' ? theme.text : 'white'};
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: opacity 0.2s;
 
-const PopularitySection = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '16px',
-  backgroundColor: theme.background,
-  borderRadius: '12px',
-});
+  &:hover {
+    opacity: 0.9;
+  }
+`;
 
-const PopularityMeter = styled(Box)({
-  width: '48px',
-  height: '48px',
-  position: 'relative',
-});
+const Section = styled.section`
+  width: 100%;
+  margin-bottom: 32px;
+`;
 
-const ActionButtons = styled(Box)({
-  display: 'flex',
-  gap: '12px',
-  width: '100%',
-  marginBottom: '24px',
-});
+const SectionTitle = styled.h2`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: ${theme.text};
+  padding-bottom: 8px;
+  border-bottom: 1px solid ${theme.divider};
+`;
 
-const ActionButton = styled(Button)({
-  flex: 1,
-  backgroundColor: theme.blue,
-  color: 'white',
-  borderRadius: '100px',
-  padding: '12px 24px',
-  textTransform: 'none',
-  fontSize: '16px',
-  boxShadow: 'none',
-  '&:hover': {
-    backgroundColor: theme.blue,
-    opacity: 0.9,
-  },
-});
+const InfoList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
 
-const SettingsButton = styled(Button)({
-  flex: 1,
-  backgroundColor: theme.background,
-  color: theme.text,
-  borderRadius: '100px',
-  padding: '12px 24px',
-  textTransform: 'none',
-  fontSize: '16px',
-  border: `1px solid ${theme.divider}`,
-  '&:hover': {
-    backgroundColor: theme.secondary,
-  },
-});
+const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
 
-const InfoSection = styled(Box)({
-  width: '100%',
-  marginBottom: '24px',
-});
+const InfoLabel = styled.span`
+  font-weight: 500;
+  color: ${theme.text};
+`;
 
-const InfoTitle = styled(Typography)({
-  fontSize: '20px',
-  fontWeight: 'bold',
-  color: theme.text,
-  marginBottom: '16px',
-});
+const InfoValue = styled.span`
+  color: ${theme.textSecondary};
+`;
 
-const InfoItem = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: '12px',
-});
+const InterestTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
 
-const InfoLabel = styled(Typography)({
-  fontSize: '16px',
-  color: theme.text,
-  fontWeight: 500,
-  marginRight: '8px',
-});
+const InterestTag = styled.span`
+  background: ${theme.chipBackground};
+  padding: 8px 16px;
+  border-radius: 16px;
+  color: ${theme.text};
+  font-weight: 500;
+  font-size: 14px;
+`;
 
-const InfoValue = styled(Typography)({
-  fontSize: '16px',
-  color: theme.textSecondary,
-});
+const BottomNav = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px;
+  background: ${theme.background};
+  border-top: 1px solid ${theme.divider};
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+`;
 
-const InterestsSection = styled(Box)({
-  width: '100%',
-  marginBottom: '24px',
-});
-
-const InterestChip = styled(Chip)({
-  margin: '4px',
-  backgroundColor: theme.chipBackground,
-  color: theme.text,
-  borderRadius: '16px',
-  fontSize: '14px',
-  fontWeight: 500,
-});
-
-const BottomNavigation = styled(Box)({
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  right: 0,
-  display: 'flex',
-  justifyContent: 'space-around',
-  padding: '12px',
-  backgroundColor: theme.background,
-  borderTop: `1px solid ${theme.divider}`,
-});
-
-const NavItem = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  color: theme.textSecondary,
-  fontSize: '12px',
-  cursor: 'pointer',
-  '&.active': {
-    color: theme.primary,
-  },
-});
+const NavItem = styled.button<{ active?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: ${props => props.active ? theme.primary : theme.textSecondary};
+  padding: 4px 16px;
+  
+  span {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  
+  p {
+    font-size: 12px;
+    margin: 0;
+  }
+`;
 
 function ProfileScreen() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [user, setUser] = useState(mockUser);
-
   return (
-    <Root>
-      <TopBar>
-        <IconWrapper>
-          <SettingsIcon />
-        </IconWrapper>
-        <img src="/badoo-logo.png" alt="Badoo" style={{ height: '24px' }} />
-        <IconWrapper>
-          <EditIcon />
-        </IconWrapper>
-      </TopBar>
+    <>
+      <Global styles={globalStyles} />
+      <Wrapper>
+        <Container>
+          <ProfileHeader>
+            <AvatarContainer>
+              <Avatar src={mockUser.avatar} alt={mockUser.name} />
+              <CameraButton>📸</CameraButton>
+            </AvatarContainer>
+            <Name>{mockUser.name}</Name>
+            <Bio>{mockUser.bio}</Bio>
+            
+            <ButtonGroup>
+              <Button>
+                ✏️ РЕДАКТИРОВАТЬ
+              </Button>
+              <Button variant="outlined">
+                ⚙️ НАСТРОЙКИ
+              </Button>
+            </ButtonGroup>
+          </ProfileHeader>
 
-      <ProfileSection>
-        <AvatarContainer>
-          <StyledAvatar src={user.avatar} />
-          <CameraButton>
-            <PhotoCamera fontSize="small" />
-          </CameraButton>
-        </AvatarContainer>
-        <Name>{user.name}</Name>
-        <ViewProfile>Посмотреть профиль</ViewProfile>
+          <Section>
+            <SectionTitle>Основная информация</SectionTitle>
+            <InfoList>
+              <InfoItem>
+                <span>📍</span>
+                <InfoLabel>Местоположение:</InfoLabel>
+                <InfoValue>{mockUser.location}</InfoValue>
+              </InfoItem>
+              <InfoItem>
+                <InfoLabel>Возраст:</InfoLabel>
+                <InfoValue>{mockUser.age} лет</InfoValue>
+              </InfoItem>
+            </InfoList>
+          </Section>
 
-        <ActionButtons>
-          <ActionButton startIcon={<EditIcon />}>
-            РЕДАКТИРОВАТЬ
-          </ActionButton>
-          <SettingsButton startIcon={<SettingsIcon />}>
-            НАСТРОЙКИ
-          </SettingsButton>
-        </ActionButtons>
+          <Section>
+            <SectionTitle>Интересы</SectionTitle>
+            <InterestTags>
+              {mockUser.interests.map((interest) => (
+                <InterestTag key={interest}>{interest}</InterestTag>
+              ))}
+            </InterestTags>
+          </Section>
+        </Container>
 
-        <InfoSection>
-          <InfoTitle>Основная информация</InfoTitle>
-          <InfoItem>
-            <InfoLabel>Местоположение</InfoLabel>
-            <InfoValue>{user.location}</InfoValue>
-          </InfoItem>
-          <InfoItem>
-            <InfoLabel>Возраст</InfoLabel>
-            <InfoValue>{user.age} лет</InfoValue>
-          </InfoItem>
-        </InfoSection>
-
-        <InterestsSection>
-          <InfoTitle>Интересы</InfoTitle>
-          <Box display="flex" flexWrap="wrap">
-            {user.interests.map((interest) => (
-              <InterestChip key={interest} label={interest} />
-            ))}
-          </Box>
-        </InterestsSection>
-
-        <VerificationButton
-          startIcon={<CheckCircleOutline />}
-        >
-          Пройдите верификацию!
-        </VerificationButton>
-
-        <CreditsSection>
-          <CreditIcon>+</CreditIcon>
-          <Box>
-            <Typography variant="subtitle1" fontWeight="bold">Кредиты</Typography>
-            <Typography variant="body2" color={theme.textSecondary}>Добавить</Typography>
-          </Box>
-        </CreditsSection>
-
-        <PopularitySection>
-          <Box>
-            <Typography variant="subtitle1" fontWeight="bold">Популярность</Typography>
-            <Typography variant="body2" color={theme.textSecondary}>Оч. низкая</Typography>
-          </Box>
-          <PopularityMeter>
-            {/* Здесь можно добавить круговой прогресс-бар */}
-          </PopularityMeter>
-        </PopularitySection>
-      </ProfileSection>
-
-      <BottomNavigation>
-        <NavItem className="active">
-          <IconButton color="inherit" size="small">❤️</IconButton>
-          <Typography>Поиск</Typography>
-        </NavItem>
-        <NavItem>
-          <IconButton color="inherit" size="small">🗺️</IconButton>
-          <Typography>Карта</Typography>
-        </NavItem>
-        <NavItem>
-          <IconButton color="inherit" size="small">📹</IconButton>
-          <Typography>Стрим</Typography>
-        </NavItem>
-        <NavItem>
-          <IconButton color="inherit" size="small">💬</IconButton>
-          <Typography>Чаты</Typography>
-        </NavItem>
-        <NavItem>
-          <IconButton color="inherit" size="small">👤</IconButton>
-          <Typography>Профиль</Typography>
-        </NavItem>
-      </BottomNavigation>
-
-      <Dialog open={isEditing} onClose={() => setIsEditing(false)}>
-        <DialogTitle>Редактировать профиль</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Имя"
-            fullWidth
-            value={user.name}
-            onChange={(e) => setUser({ ...user, name: e.target.value })}
-          />
-          <TextField
-            margin="dense"
-            label="Возраст"
-            type="number"
-            fullWidth
-            value={user.age}
-            onChange={(e) => setUser({ ...user, age: Number(e.target.value) })}
-          />
-          <TextField
-            margin="dense"
-            label="О себе"
-            fullWidth
-            multiline
-            rows={4}
-            value={user.bio}
-            onChange={(e) => setUser({ ...user, bio: e.target.value })}
-          />
-          <TextField
-            margin="dense"
-            label="Местоположение"
-            fullWidth
-            value={user.location}
-            onChange={(e) => setUser({ ...user, location: e.target.value })}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsEditing(false)}>Отмена</Button>
-          <Button onClick={() => setIsEditing(false)} variant="contained">
-            Сохранить
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Root>
+        <BottomNav>
+          <NavItem>
+            <span>❤️</span>
+            <p>Поиск</p>
+          </NavItem>
+          <NavItem>
+            <span>🗺️</span>
+            <p>Карта</p>
+          </NavItem>
+          <NavItem>
+            <span>📹</span>
+            <p>Стрим</p>
+          </NavItem>
+          <NavItem>
+            <span>💬</span>
+            <p>Чаты</p>
+          </NavItem>
+          <NavItem active>
+            <span>👤</span>
+            <p>Профиль</p>
+          </NavItem>
+        </BottomNav>
+      </Wrapper>
+    </>
   );
 }
 

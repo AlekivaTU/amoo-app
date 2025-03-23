@@ -24,11 +24,16 @@
       "./src/types"
     ],
     "paths": {
-      "leaflet": ["./node_modules/@types/leaflet"],
-      "react-leaflet": ["./src/types/react-leaflet"]
+      "leaflet": [
+        "./node_modules/@types/leaflet"
+      ],
+      "react-leaflet": [
+        "./src/types/react-leaflet"
+      ]
     }
   },
   "include": [
     "src"
-  ]
+  ],
+  "extends": "expo/tsconfig.base"
 }
