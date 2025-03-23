@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/amoo-app/static/css/main.7fd2334a.css",
-    "main.js": "/amoo-app/static/js/main.072a9079.js",
-    "static/js/766.be8f3478.js": "/amoo-app/static/js/766.be8f3478.js",
+    "main.css": "/amoo-app/static/css/main.2ca5f8db.css",
+    "main.js": "/amoo-app/static/js/main.11e88421.js",
+    "static/js/908.61833a8f.js": "/amoo-app/static/js/908.61833a8f.js",
     "index.html": "/amoo-app/index.html",
     "serve.json": "/amoo-app/serve.json",
     "manifest.json": "/amoo-app/manifest.json",
-    "main.7fd2334a.css.map": "/amoo-app/static/css/main.7fd2334a.css.map",
-    "main.072a9079.js.map": "/amoo-app/static/js/main.072a9079.js.map",
-    "766.be8f3478.js.map": "/amoo-app/static/js/766.be8f3478.js.map"
+    "main.2ca5f8db.css.map": "/amoo-app/static/css/main.2ca5f8db.css.map",
+    "main.11e88421.js.map": "/amoo-app/static/js/main.11e88421.js.map",
+    "908.61833a8f.js.map": "/amoo-app/static/js/908.61833a8f.js.map"
   },
   "entrypoints": [
-    "static/js/766.be8f3478.js",
-    "static/css/main.7fd2334a.css",
-    "static/js/main.072a9079.js"
+    "static/js/908.61833a8f.js",
+    "static/css/main.2ca5f8db.css",
+    "static/js/main.11e88421.js"
   ]
 }
